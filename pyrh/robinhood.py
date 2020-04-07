@@ -545,7 +545,7 @@ class Robinhood(SessionManager):
         """
         market_data = {}
         try:
-            market_data = self.get_url(endpoints.option_market_data(optionid)) or {}
+            market_data = self.get_url(endpoints.market_data(optionid)) or {}
         except requests.exceptions.HTTPError:
             raise InvalidOptionId()
         return market_data
@@ -562,7 +562,7 @@ class Robinhood(SessionManager):
         return info["results"][0]
 
     def get_option_chainid(self, symbol):
-        stock_info = self.get_url(self.endpoints["instruments"] + "?symbol=" + symbol)
+        stock_info = self.get_url(endpoints["instruments"] + "?symbol=" + symbol)
         stock_id = stock_info["results"][0]["id"]
         params = {}
         params["equity_instrument_ids"] = stock_id
